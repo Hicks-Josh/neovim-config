@@ -808,8 +808,25 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     config = function()
-      local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
-      require('nvim-treesitter').install(filetypes)
+      local ts = require 'nvim-treesitter'
+
+      local filetypes = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'javascript',
+        'jsx',
+        'lua',
+        'luadoc',
+        'markdown',
+        'query',
+        'vim',
+        'vimdoc',
+      }
+
+      ts.install(filetypes, { force = false })
+
       vim.api.nvim_create_autocmd('FileType', {
         pattern = filetypes,
         callback = function() vim.treesitter.start() end,
@@ -982,6 +999,7 @@ require('lazy').setup({
     },
     config = true,
   },
+  { 'nvim-tree/nvim-web-devicons', lazy = true },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
